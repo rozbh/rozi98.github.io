@@ -9,9 +9,19 @@ function drawMap(ctx) {
     }
 }
 function Drawgol(ctx) {
+
     let golxy = {
         x: (Math.floor(Math.random() * 29) + 1) * 50,
-        y: (Math.floor(Math.random() * 15) + 1) * 50 
+        y: (Math.floor(Math.random() * 15) + 1) * 50
+    }
+    for (let index = 0; index < snakebody.length; index++) {
+        if (JSON.stringify(snakebody[index]) == JSON.stringify(golxy)) {
+            golxy = {
+                x: (Math.floor(Math.random() * 29) + 1) * 50,
+                y: (Math.floor(Math.random() * 15) + 1) * 50
+            }
+            index=0
+        }
     }
     ctx.beginPath();
     ctx.arc(golxy.x + 25, golxy.y + 25, 20, 0, 2 * Math.PI);
@@ -57,16 +67,19 @@ function Losser() {
 function LossCheck() {
 
     const { x, y } = snakebody[snakebody.length - 1]
-    if (x > 1500 || x < 0) {
+    if (x > 1450 || x < 0) {
         Losser()
+        return
     }
-    if (y > 800 || y < 0) {
+    if (y > 750 || y < 0) {
         Losser()
+        return
     }
     for (let index = 0; index < snakebody.length - 1; index++) {
         if (snakebody[index].x == x && snakebody[index].y == y) {
             Losser()
-            break;
+            return
+
         }
 
     }
@@ -75,7 +88,7 @@ function logic(x, y, ctx) {
     LossCheck()
     if (JSON.stringify(snakebody[snakebody.length - 1]) == JSON.stringify(gol)) {
         snakebody.push(gol)
-       // var p = document.getElementById("score")
+        // var p = document.getElementById("score")
         gol = Drawgol(ctx);
         score += 1
         para.innerText = `your score is :${score}`
@@ -83,5 +96,6 @@ function logic(x, y, ctx) {
     ClearSnake(ctx)
     snakebody[snakebody.length - 1].x += x
     snakebody[snakebody.length - 1].y += y
+    position.innerText = `x=${snakebody[snakebody.length - 1].x} y=${snakebody[snakebody.length - 1].y}`
     DrawSnake(ctx)
 }
