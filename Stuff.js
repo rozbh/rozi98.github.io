@@ -9,18 +9,18 @@ function drawMap(ctx) {
     }
 }
 function Drawgol(ctx) {
-    let gol = {
+    let golxy = {
         x: (Math.floor(Math.random() * 29) + 1) * 50,
-        y: (Math.floor(Math.random() * 15) + 1) * 50
+        y: (Math.floor(Math.random() * 15) + 1) * 50 
     }
     ctx.beginPath();
-    ctx.arc(gol.x + 25, gol.y + 25, 20, 0, 2 * Math.PI);
+    ctx.arc(golxy.x + 25, golxy.y + 25, 20, 0, 2 * Math.PI);
     ctx.fillStyle = 'pink'
     ctx.fill();
     ctx.lineWidth = 5;
     ctx.strokeStyle = '#003300';
     ctx.stroke();
-    return gol
+    return golxy
 }
 function DrawSnake(ctx) {
     for (let index = 0; index < snakebody.length; index++) {
@@ -49,21 +49,24 @@ function ClearSnake(ctx) {
     }
 
 }
+function Losser() {
+    clearInterval(Move)
+    location.reload()
+    alert(`HaHa Loser score is : ${score}`)
+}
 function LossCheck() {
 
     const { x, y } = snakebody[snakebody.length - 1]
     if (x > 1500 || x < 0) {
-        location.reload()
-        alert(`HaHa Loser score is : ${score}`)
+        Losser()
     }
     if (y > 800 || y < 0) {
-        location.reload()
-        alert(`HaHa Loser score is : ${score}`)
+        Losser()
     }
     for (let index = 0; index < snakebody.length - 1; index++) {
         if (snakebody[index].x == x && snakebody[index].y == y) {
-            location.reload()
-            alert(`HaHa Loser score is : ${score}`)
+            Losser()
+            break;
         }
 
     }
@@ -72,7 +75,7 @@ function logic(x, y, ctx) {
     LossCheck()
     if (JSON.stringify(snakebody[snakebody.length - 1]) == JSON.stringify(gol)) {
         snakebody.push(gol)
-        var p = document.getElementById("score")
+       // var p = document.getElementById("score")
         gol = Drawgol(ctx);
         score += 1
         para.innerText = `your score is :${score}`

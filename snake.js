@@ -22,6 +22,7 @@ document.body.addEventListener("keydown", event => {
             if (!CanMoveX) {
                 return
             }
+            logic(50, 0,ctx,gol,score)
             CanMoveY=true
             CanMoveX=false
             clearInterval(Move)
@@ -33,6 +34,7 @@ document.body.addEventListener("keydown", event => {
             if (!CanMoveX) {
                 return
             }
+            logic(-50, 0,ctx,gol,score)
             CanMoveY=true
             CanMoveX=false
             clearInterval(Move)
@@ -44,6 +46,7 @@ document.body.addEventListener("keydown", event => {
             if (!CanMoveY) {
                 return
             }
+            logic(0, -50,ctx,gol,score)
             CanMoveY=false
             CanMoveX=true
             clearInterval(Move)
@@ -55,6 +58,7 @@ document.body.addEventListener("keydown", event => {
             if (!CanMoveY) {
                 return
             }
+            logic(0, 50,ctx,gol,score)
             CanMoveY=false
             CanMoveX=true
             clearInterval(Move)
