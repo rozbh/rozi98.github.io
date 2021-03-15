@@ -19,7 +19,7 @@ function Drawgol(ctx) {
                 x: (Math.floor(Math.random() * 29) + 1) * 50,
                 y: (Math.floor(Math.random() * 15) + 1) * 50
             }
-            index=0
+            index = 0
         }
     }
     ctx.beginPath();
@@ -56,12 +56,31 @@ function ClearSnake(ctx) {
         snakebody[index].x = parseInt(snakebody[index + 1].x)
         snakebody[index].y = parseInt(snakebody[index + 1].y)
     }
-
 }
 function Losser() {
     clearInterval(Move)
-    location.reload()
-    alert(`HaHa Loser score is : ${score}`)
+    const interval = 5000/snakebody.length
+    GameOver.play()
+    let x=0
+    const clear= setInterval(() => {
+        ctx.beginPath();
+        var p = ctx.getImageData(5 + snakebody[x].x, 5 + snakebody[x].y, 1, 1).data;
+        const HexColor = "#" + ((1 << 24) + (p[0] << 16) + (p[1] << 8) + p[2]).toString(16).slice(1);
+        ctx.arc(25 + snakebody[x].x, 25 + snakebody[x].y, 20, 0, 2 * Math.PI);
+        ctx.fillStyle = HexColor
+        ctx.fill();
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = HexColor
+        ctx.stroke();
+        x+=1
+        if (x==snakebody.length) {
+            clearInterval(clear)
+            location.reload()
+        }
+    }, interval);
+
+   // alert(`HaHa Loser score is : ${score}`)
+    
 }
 function LossCheck() {
 
@@ -83,14 +102,19 @@ function LossCheck() {
 
     }
 }
+let eat = new Audio('./sounds/eat.mp3');
+let GameOver = new Audio('./sounds/gameover.wav');
 function logic(x, y, ctx) {
     LossCheck()
     if (JSON.stringify(snakebody[snakebody.length - 1]) == JSON.stringify(gol)) {
+        eat.pause();
+        eat.play();
         snakebody.push(gol)
         // var p = document.getElementById("score")
         gol = Drawgol(ctx);
         score += 1
         para.innerText = `your score is :${score}`
+
     }
     ClearSnake(ctx)
     snakebody[snakebody.length - 1].x += x
