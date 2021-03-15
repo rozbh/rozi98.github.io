@@ -9,7 +9,6 @@ function drawMap(ctx) {
     }
 }
 function Drawgol(ctx) {
-
     let golxy = {
         x: (Math.floor(Math.random() * 29) + 1) * 50,
         y: (Math.floor(Math.random() * 15) + 1) * 50

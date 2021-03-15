@@ -11,7 +11,7 @@ snakebody.push(
     { x: 100, y: 50 },
     { x: 150, y: 50 },
 )
-position.innerText = `Head x=${snakebody[snakebody.length - 1].x} y=${snakebody[snakebody.length - 1].y}`
+position.innerText = `x=${snakebody[snakebody.length - 1].x} y=${snakebody[snakebody.length - 1].y}`
 drawMap(ctx)
 let gol = Drawgol(ctx)
 DrawSnake(ctx)
@@ -19,8 +19,8 @@ let Move;
 let score = 0
 let CanMoveX = true
 let CanMoveY = true
+const interval = 120
 document.body.addEventListener("keydown", event => {
-    const interval = 100
     switch (event.code) {
         case 'KeyD':
         case 'ArrowRight':
