@@ -86,18 +86,16 @@ function LossCheck() {
 
     const { x, y } = snakebody[snakebody.length - 1]
     if (x > 1450 || x < 0) {
-        Losser()
-        return
+       
+        return  Losser()
     }
     if (y > 750 || y < 0) {
-        Losser()
-        return
+        
+        return Losser()
     }
     for (let index = 0; index < snakebody.length - 1; index++) {
         if (snakebody[index].x == x && snakebody[index].y == y) {
-            Losser()
-            return
-
+            return Losser()
         }
 
     }
@@ -105,20 +103,22 @@ function LossCheck() {
 let eat = new Audio('./sounds/eat.mp3');
 let GameOver = new Audio('./sounds/gameover.wav');
 function logic(x, y, ctx) {
+    ClearSnake(ctx)
+    snakebody[snakebody.length - 1].x += x
+    snakebody[snakebody.length - 1].y += y
     LossCheck()
+    position.innerText = `x=${snakebody[snakebody.length - 1].x} y=${snakebody[snakebody.length - 1].y}`
+    DrawSnake(ctx)
+   
     if (JSON.stringify(snakebody[snakebody.length - 1]) == JSON.stringify(gol)) {
-        eat.pause();
-        eat.play();
+        
         snakebody.push(gol)
         // var p = document.getElementById("score")
         gol = Drawgol(ctx);
         score += 1
         para.innerText = `your score is :${score}`
-
+        eat.play();
     }
-    ClearSnake(ctx)
-    snakebody[snakebody.length - 1].x += x
-    snakebody[snakebody.length - 1].y += y
-    position.innerText = `x=${snakebody[snakebody.length - 1].x} y=${snakebody[snakebody.length - 1].y}`
-    DrawSnake(ctx)
+
+
 }
