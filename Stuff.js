@@ -1,7 +1,7 @@
 function drawMap(ctx) {
     let swap = false
-    for (let indexy = 0; indexy < 700; indexy += 50) {
-        for (let index = 0; index <= 1500; index += 50) {
+    for (let indexy = 0; indexy < 600; indexy += 50) {
+        for (let index = 0; index <= 1000; index += 50) {
             ctx.fillStyle = swap ? 'green' : 'lime'
             ctx.fillRect(index, indexy, 50, 50);
             swap = !swap
@@ -10,14 +10,14 @@ function drawMap(ctx) {
 }
 function Drawgol(ctx) {
     let golxy = {
-        x: (Math.floor(Math.random() * 29) ) * 50,
-        y: (Math.floor(Math.random() * 13) ) * 50
+        x: (Math.floor(Math.random() * 19) ) * 50,
+        y: (Math.floor(Math.random() * 12) ) * 50
     }
     for (let index = 0; index < snakebody.length; index++) {
         if (JSON.stringify(snakebody[index]) == JSON.stringify(golxy)) {
             golxy = {
-                x: (Math.floor(Math.random() * 29) + 1) * 50,
-                y: (Math.floor(Math.random() * 15) + 1) * 50
+                x: (Math.floor(Math.random() * 19) + 1) * 50,
+                y: (Math.floor(Math.random() * 12) + 1) * 50
             }
             index = 0
         }
@@ -85,11 +85,11 @@ function Losser() {
 function LossCheck() {
 
     const { x, y } = snakebody[snakebody.length - 1]
-    if (x > 1450 || x < 0) {
+    if (x > 950 || x < 0) {
        
         return  Losser()
     }
-    if (y > 650 || y < 0) {
+    if (y > 550 || y < 0) {
         
         return Losser()
     }
